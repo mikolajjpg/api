@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Moja Biblioteczka{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>📚 Moja Biblioteczka</h1>
+        <a href="{{ url_for('index') }}">Start</a> | 
+        <a href="{{ url_for('ping_db') }}">Ping DB</a> | 
+        <a href="{{ url_for('list_books') }}">Lista Książek</a>
+    </header>
+    <hr>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul style="color: blue;">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    
+    <main>
+    {% block content %}
+    <p>Witaj w aplikacji do śledzenia książek. Zapisuj co chcesz przeczytać!</p>
+    {% endblock %}
+    </main>
+</body>
+</html>
