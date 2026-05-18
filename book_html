@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+{% block title %}Biblioteczka - {{book["title"]}}{% endblock %}
+
+{% block content %}
+<h2>Tytuł: {{book["title"]}}</h2>
+
+<p>
+    Status: 
+    {% if book["is_read"] == 1 %}
+        <strong>Przeczytana 🎉</strong>
+    {% else %}
+        <strong>Jeszcze nieprzeczytana</strong>
+    {% endif %}
+</p>
+<p><small>Data dodania na listę: {{ book["created_at"] }}</small></p>
+
+<form method="post" action="{{url_for('update_book_status', book_id=book['id'])}}" style="display:inline;">
+    <input type="hidden" name="view_name" value="book" />
+    <button type="submit">Oznacz jako (nie)przeczytaną</button>
+</form>
+
+<form method="post" action="{{url_for('delete_book', book_id=book['id'])}}" style="display:inline;">
+    <button type="submit">Wyrzuć z listy</button>
+</form>
+
+<br><br>
+<a href="{{ url_for('list_books') }}">⬅ Wróć do listy</a>
+{% endblock %}
