@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block title %}Biblioteczka - Lista Książek{% endblock %}
+
+{% block content %}
+<h2>Moje Książki</h2>
+<p><a href="{{ url_for('add_book') }}">➕ Dodaj nową książkę</a></p>
+
+{% if books|length == 0 %}
+    <h3>Nie masz jeszcze żadnych książek na liście.</h3>
+{% else %}
+    <ul>
+        {% for book in books %}
+        <li>
+         {% if book["is_read"] == 1 %}
+            📖 (Przeczytano)
+         {% else %}
+            📘 (Czeka)
+         {% endif %}
+          
+          <strong><a href="{{url_for('book', book_id=book['id'])}}">{{book["title"]}}</a></strong> 
+          <small>Dodano: {{ book["created_at"] }}</small>
+          
+          <form method="post" action="{{url_for('update_book_status', book_id=book['id'])}}" style="display:inline;">
+            <input type="hidden" name="view_name" value="list_books" />
+            <button type="submit">Zmień status</button>
+          </form>
+          
+          <form method="post" action="{{url_for('delete_book', book_id=book['id'])}}" style="display:inline;">
+            <button type="submit">Usuń</button>
+          </form>
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
