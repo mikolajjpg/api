@@ -1,0 +1,5 @@
+{% extends "index.html" %}
+{% block title %}Biblioteczka - Ping{% endblock %}
+{% block content %}
+    <p style="color:green; font-weight: bold;">✔ Baza danych komunikuje się poprawnie!</p>
+{% endblock %}
